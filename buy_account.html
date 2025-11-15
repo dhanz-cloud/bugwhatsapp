@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Account - Blue Neon</title>
+    <style>
+        /* --- Definisi Warna Biru Neon --- */
+        :root {
+            --neon-blue: #00FFFF; /* Warna Biru Neon */
+            --dark-background: #1a1a1a;
+            --main-background: #000000;
+            --dark-button: #008080; /* Warna dasar tombol biru tua */
+            --hover-button: #00AFAF;
+        }
+
+        /* --- Gaya Dasar --- */
+        body {
+            background-color: var(--main-background);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+        }
+
+        /* --- Kartu Harga (Ganti Pink ke Biru) --- */
+        .price-card {
+            background-color: var(--dark-background);
+            /* Border Biru */
+            border: 2px solid var(--neon-blue); 
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            
+            /* Box Shadow Biru */
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            color: var(--neon-blue); /* Judul Biru Neon */
+            margin-bottom: 10px;
+            /* Text Shadow Biru */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .card-price {
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: #cccccc;
+        }
+
+        /* --- Tombol Beli (BUY) --- */
+        .buy-btn {
+            float: right;
+            padding: 10px 25px;
+            border: none;
+            background-color: var(--dark-button); /* Warna Dasar Tombol */
+            color: #ffffff;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            
+            /* Box Shadow Biru */
+            box-shadow: 0 0 10px var(--neon-blue), 0 0 20px rgba(0, 255, 255, 0.7);
+            transition: background-color 0.3s;
+        }
+
+        .buy-btn:hover {
+            background-color: var(--hover-button);
+        }
+        
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /* --- Modal Pop-up (Ganti Pink ke Biru) --- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(3px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            padding: 20px;
+            /* Border Biru */
+            border: 2px solid var(--neon-blue);
+            width: 80%;
+            max-width: 300px;
+            border-radius: 10px;
+            text-align: center;
+            /* Box Shadow Biru */
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        }
+        
+        .modal-content h3 {
+            color: var(--neon-blue); /* Biru Neon */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .contact-link {
+            display: block;
+            margin: 15px 0;
+            padding: 10px;
+            /* Border Biru */
+            border: 1px solid var(--neon-blue); 
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .contact-link i {
+            margin-right: 5px;
+        }
+
+        .contact-link:hover {
+            /* Hover background Biru */
+            background-color: rgba(0, 255, 255, 0.2);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: #cccccc;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        /* ================================================= */
+        /* 🚀 EFEK ANIMASI KILAUAN PADA TOMBOL BUY 🚀 */
+        /* ================================================= */
+        
+        /* Elemen kilauan yang bergerak */
+        .buy-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                60deg, 
+                transparent, 
+                rgba(0, 255, 255, 0.5), /* Kilauan Biru Neon */
+                transparent
+            );
+            transform: rotate(45deg); 
+            z-index: 1;
+            animation: shine 1.5s infinite linear; 
+            opacity: 0; 
+        }
+
+        /* Tampilkan efek kilauan ketika tombol di-hover atau aktif */
+        .buy-btn:hover::before, .buy-btn:active::before {
+            opacity: 1; 
+        }
+
+        /* Pastikan teks tombol tetap di atas kilauan */
+        .buy-btn span {
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes shine {
+            0% {
+                top: -50%;
+                left: -50%;
+            }
+            100% {
+                top: 100%;
+                left: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="price-card clearfix">
+            <span class="card-title">Member Account</span>
+            <p class="card-price">35K IDR / Month</p>
+            <p class="card-price">100K IDR / Permanent</p>
+            <button class="buy-btn" onclick="openModal('Member')"><span>BUY</span></button>
+        </div>
+
+        <div class="price-card clearfix">
+            <span class="card-title">Reseller Account</span>
+            <p class="card-price">40K IDR / Month</p>
+            <p class="card-price">140K IDR / Permanent</p>
+            <button class="buy-btn" onclick="openModal('Reseller')"><span>BUY</span></button>
+        </div>
+
+        <div class="price-card clearfix">
+            <span class="card-title">VIP Account</span>
+            <p class="card-price">60K IDR / Month</p>
+            <p class="card-price">200K IDR / Permanent</p>
+            <button class="buy-btn" onclick="openModal('VIP')"><span>BUY</span></button>
+        </div>
+        
+    </div>
+    
+    <div id="buyModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Buy [Account Type] Account</h3> 
+            <p style="color: #cccccc; font-size: 0.9em; margin-bottom: 20px;">Choose a contact method to continue your purchase:</p>
+            
+            <a href="https://t.me/dhanzmodeheck" target="_blank" class="contact-link" style="color: var(--neon-blue); border-color: var(--neon-blue);"><i class="fab fa-telegram-plane"></i> Telegram</a>
+          
+            
+            <button class="close-btn" onclick="closeModal()">CLOSE</button>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk membuka modal dan mengganti judul
+        function openModal(accountType) {
+            // Pastikan modal muncul di tengah
+            const modal = document.getElementById('buyModal');
+            modal.style.display = "flex"; 
+            document.getElementById('modalTitle').innerText = 'Buy ' + accountType + ' Account';
+        }
+
+        function closeModal() {
+            document.getElementById('buyModal').style.display = "none";
+        }
+        
+        // Tutup modal jika user mengklik di luar area modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('buyModal');
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

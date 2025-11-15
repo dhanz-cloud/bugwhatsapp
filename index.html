@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asta Panel - Platform Terbaik Anda</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ================================================= */
+        /* 1. CSS VARIABLES (UNTUK DARK/LIGHT MODE) */
+        /* ================================================= */
+        :root {
+            /* Mode Malam (Default) */
+            --text-color-primary: #ffffff;
+            --text-color-secondary: #cccccc;
+            --background-overlay: rgba(0, 0, 0, 0.7); /* Lapisan gelap */
+            --header-background: rgba(26, 26, 26, 0.9);
+            --icon-color: #fce38a; /* Warna Ikon (Matahari/Bulan) */
+            --button-color: #3b76ff; /* Warna tombol Masuk ke Panel */
+            --button-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Mode Terang */
+        .light-mode {
+            --text-color-primary: #1a1a1a;
+            --text-color-secondary: #555555;
+            --background-overlay: rgba(255, 255, 255, 0.7); /* Lapisan terang */
+            --header-background: rgba(255, 255, 255, 0.9);
+            --icon-color: #f7a01a; /* Warna Ikon (Matahari/Bulan) */
+            --button-color: #007bff;
+            --button-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ================================================= */
+        /* 2. GAYA UTAMA (BODY & BACKGROUND) */
+        /* ================================================= */
+        body {
+            /* 🚨 GANTI URL INI DENGAN LINK GAMBAR LATAR BELAKANG ANDA */
+            background-image: url('https://files.catbox.moe/1unink.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            transition: color 0.5s;
+        }
+
+        /* Overlay (Efek Buram dan Kegelapan/Kecerahan) */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-overlay);
+            backdrop-filter: blur(5px); /* Memberi efek buram */
+            z-index: -1;
+            transition: background-color 0.5s;
+        }
+
+        /* ================================================= */
+        /* 3. HEADER & TOGGLE MODE */
+        /* ================================================= */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--header-background);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--text-color-primary);
+        }
+
+        .logo img {
+            width: 30px;
+            height: 30px;
+            margin-right: 8px;
+            border-radius: 50%;
+        }
+
+        #mode-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: var(--icon-color);
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        #mode-toggle:hover {
+            transform: rotate(10deg);
+        }
+
+        /* ================================================= */
+        /* 4. CONTENT & TOMBOL */
+        /* ================================================= */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .main-content h1 {
+            font-size: 2.8em;
+            font-weight: 800;
+            color: var(--text-color-primary);
+            line-height: 1.2;
+            margin-bottom: 10px;
+            transition: color 0.5s;
+        }
+        
+        .main-content h1 span {
+            /* Membuat warna gradien untuk Platform Panel Terbaik Anda */
+            background: linear-gradient(90deg, #66b3ff, #007bff); 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-content p {
+            font-size: 1.1em;
+            color: var(--text-color-secondary);
+            max-width: 500px;
+            margin-bottom: 40px;
+            transition: color 0.5s;
+        }
+
+        .cta-button {
+            padding: 15px 35px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: var(--button-color);
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+            box-shadow: var(--button-shadow);
+        }
+
+        .cta-button:hover {
+            background-color: #5d93ff;
+            transform: translateY(-2px);
+        }
+
+        /* Responsif untuk layar kecil */
+        @media (max-width: 600px) {
+            .main-content h1 {
+                font-size: 2em;
+            }
+            .main-content p {
+                font-size: 1em;
+            }
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body class="dark-mode"> <header class="header">
+        <div class="logo">
+            <img src="https://files.catbox.moe/1unink.jpg" alt="dhanz logo">
+            Bug XJTM By Dhanz
+        </div>
+        
+        <button id="mode-toggle">
+            <i class="fas fa-sun"></i> </button>
+    </header>
+
+    <div class="main-content">
+        <h1>
+            <span>Developer</span>
+            <br>
+            dhanz slowresp
+        </h1>
+        <p>
+          もしあなたが傷ついていると感じたら、友達に話してください。そして、女性を傷つけてはいけません。それは乱暴を働くのと同じで、悪魔と同じです。
+        </p>
+        
+        <a href="login.html" class="cta-button">
+            Masuk ke Bug Whatsapp
+        </a>
+    </div>
+
+    <script>
+        const toggleButton = document.getElementById('mode-toggle');
+        const body = document.body;
+
+        // Tentukan status awal: true=dark, false=light
+        let isDarkMode = true; 
+
+        // Fungsi untuk menerapkan tema
+        function applyTheme() {
+            if (isDarkMode) {
+                body.classList.remove('light-mode');
+                // Ganti ikon menjadi Matahari (artinya tombol ini akan mengaktifkan mode Terang)
+                toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                body.classList.add('light-mode');
+                // Ganti ikon menjadi Bulan (artinya tombol ini akan mengaktifkan mode Malam)
+                toggleButton.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+
+        // Panggil saat pertama kali dimuat
+        applyTheme(); 
+
+        // Event Listener untuk tombol toggle
+        toggleButton.addEventListener('click', () => {
+            isDarkMode = !isDarkMode; // Balikkan status
+            applyTheme(); // Terapkan tema baru
+            
+            // Simpan preferensi ke local storage (agar tema tetap sama saat dibuka lagi)
+            localStorage.setItem('darkMode', isDarkMode);
+        });
+
+        // Cek Local Storage saat dimuat untuk tema yang tersimpan
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode !== null) {
+                isDarkMode = (savedMode === 'true'); // Ambil status dari penyimpanan
+            }
+            applyTheme(); // Terapkan tema yang tersimpan
+        });
+    </script>
+</body>
+</html>

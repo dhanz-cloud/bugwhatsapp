@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account...</title>
+    <style>
+        /* --- CSS Layar Loading --- */
+        body {
+            background-color: #000000; /* Latar belakang hitam */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #ffffff;
+            overflow: hidden; 
+        }
+        
+        /* Container utama yang akan disembunyikan setelah loading */
+        #loadingScreen {
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            background-color: #000000;
+            transition: opacity 1s ease-out; 
+        }
+        
+        /* Teks Judul Atas (ROVSP V4.1) */
+        #topTitle {
+            font-family: monospace; /* Font blok/digital */
+            font-size: 3.6em;
+            font-weight: bold;
+            color: #D600FF; 
+            text-shadow: 0 0 15px rgba(214, 0, 255, 0.9);
+            margin-bottom: 100px; /* Jarak dengan Loading Bar */
+            letter-spacing: 2px;
+        }
+
+        /* Teks LOADING... */
+        #loadingText {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00FFFF; /* Biru Cyan Neon */
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        /* Container Progress Bar */
+        #progressBarContainer {
+            width: 80%;
+            max-width: 400px;
+            height: 30px;
+            border: 2px solid #00FFFF; /* Border biru neon */
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Isi Progress Bar yang bergerak */
+        #progressBar {
+            height: 100%;
+            width: 0%; 
+            background-color: #00FFFF; /* Warna isi biru neon */
+            transition: width 0.1s linear; 
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.9);
+        }
+        
+        /* Teks Persentase */
+        #progressPercent {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #00FFFF;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+        }
+
+        /* Konten Utama (Disembunyikan saat loading) */
+        #mainContent {
+            display: none;
+            text-align: center;
+            color: white;
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loadingScreen">
+        
+        <div id="topTitle">XJTM Xcrash</div>
+        
+        <div id="loadingText">LOADING WOI SABAR...</div>
+        <div id="progressBarContainer">
+            <div id="progressBar"></div>
+            <div id="progressPercent">0%</div>
+        </div>
+    </div>
+    
+    
+
+    <script>
+        const progressBar = document.getElementById('progressBar');
+        const progressPercent = document.getElementById('progressPercent');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const mainContent = document.getElementById('mainContent');
+        let width = 0;
+        
+        // Fungsi untuk menggerakkan progress bar
+        function move() {
+            if (width >= 100) {
+                // Loading Selesai
+                clearInterval(id);
+                
+                // Menghilangkan Layar Loading secara halus
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    mainContent.style.display = 'block'; // Tampilkan konten utama
+                    
+                    // OPSIONAL: Redirect ke halaman lain (misalnya login.html)
+                    // window.location.href = "login.html"; 
+                }, 1000); // Tunggu 1 detik sampai transisi opacity selesai
+                
+            } else {
+                // Tambah kecepatan (agar terlihat acak seperti di video)
+                const speed = Math.floor(Math.random() * 1.5) + 5; // 1% sampai 10% per langkah
+                width = Math.min(100, width + speed);
+                
+                progressBar.style.width = width + '%';
+                progressPercent.innerText = width + '%';
+            }
+        }
+        
+        // Mulai animasi
+        const id = setInterval(move, 200); // Update setiap 200ms
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back - Login Panel</title>
+    <style>
+        /* ================================================= */
+        /* 🚨 PERUBAHAN UTAMA: BACKGROUND IMAGE 🚨 */
+        /* ================================================= */
+        body {
+            /* 1. GANTI URL INI DENGAN LINK GAMBAR ANDA */
+            background-image: url('https://files.catbox.moe/1unink.jpg'); 
+            background-color: #000000; /* Warna cadangan jika gambar gagal dimuat */
+            background-size: cover; /* Pastikan gambar menutupi seluruh area */
+            background-position: center; /* Pusatkan gambar */
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Gambar tidak bergerak saat discroll */
+
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #ffffff;
+            position: relative;
+        }
+
+        /* OVERLAY GELAP (untuk membuat teks lebih mudah dibaca di atas gambar) */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Semi-transparan hitam. Sesuaikan nilai alpha (0.5) untuk tingkat kegelapan */
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: -1; 
+        }
+
+        .login-container {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(26, 26, 26, 0.85); /* Latar belakang container sedikit transparan */
+            border-radius: 15px;
+            box-shadow: 0 0 35px rgba(0, 255, 255, 0.6); 
+            z-index: 1; /* Pastikan container berada di atas overlay */
+        }
+
+        /* --- Gaya Video Header Anime (EFEK CAHAYA BIRU & KILAUAN) --- */
+        #video-header {
+            width: 100%;
+            height: 200px; 
+            margin-bottom: 10px;
+            overflow: hidden;
+            border-radius: 10px;
+            position: relative;
+            border: 3px solid #00FFFF; 
+            
+            /* Box Shadow Biru/Cyan yang kuat + Kilauan Bintang */
+            box-shadow: 
+                0 0 10px rgba(0, 255, 255, 0.8), 
+                0 0 30px rgba(0, 255, 255, 0.6), 
+                0 0 50px rgba(0, 255, 255, 0.4),
+                0 0 8px 3px rgba(255, 255, 255, 0.7), 
+                0 0 20px 5px rgba(255, 255, 255, 0.3); 
+        }
+        
+        #header-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            filter: brightness(100%); 
+        }
+        
+        /* --- Gaya Teks, Input, dan Tombol --- */
+        h2 {
+            font-size: 2em;
+            color: #00FFFF; 
+            text-shadow: 0 0 12px rgba(0, 255, 255, 0.8);
+            margin-bottom: 5px;
+        }
+
+        p {
+            color: #cccccc;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #00FFFF;
+            background-color: #0d0d0d;
+            color: #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1.1em;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background-color: #008080; 
+            color: #ffffff;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            position: relative; 
+            overflow: hidden; 
+            box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF;
+            transition: background-color 0.1s, transform 0.1s;
+        }
+
+        .login-button:hover {
+            background-color: #00AFAF;
+        }
+
+        .buy-account-link {
+            display: block;
+            margin-top: 25px;
+            color: #00FFFF; 
+            text-decoration: none;
+            font-size: 1em;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+        }
+        
+        /* --- Gaya Modal Error (tidak berubah) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: none; 
+            padding: 0;
+            width: 85%;
+            max-width: 350px;
+            text-align: left;
+            position: relative;
+        }
+        
+        #error-message-area {
+            position: absolute;
+            top: -150px; 
+            left: 0;
+            width: 100%;
+        }
+
+        .modal-icon {
+            font-size: 1.5em;
+            color: #FFC300; 
+            margin-right: 10px;
+            display: inline-block;
+        }
+        
+        .modal-title {
+            font-size: 1.2em;
+            color: #00FFFF; 
+            font-weight: bold;
+            display: inline-block;
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+        }
+
+        .modal-message {
+            color: #ffffff;
+            font-size: 0.9em;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .modal-close-btn-container {
+            position: absolute;
+            top: 40px; 
+            right: 10px;
+        }
+
+        .modal-close-btn {
+            background: none;
+            color: #00FFFF; 
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+            transition: color 0.1s;
+        }
+
+        /* ================================================= */
+        /* 🚀 EFEK ANIMASI KILAUAN TOMBOL LOGIN 🚀 */
+        /* ================================================= */
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                60deg, 
+                transparent, 
+                rgba(0, 255, 255, 0.5), 
+                transparent
+            );
+            transform: rotate(45deg); 
+            z-index: 1;
+            animation: shine 2s infinite linear; 
+            opacity: 0; 
+        }
+
+        .login-button:hover::before, .login-button:active::before {
+            opacity: 1; 
+        }
+
+        .login-button span {
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes shine {
+            0% {
+                top: -50%;
+                left: -50%;
+            }
+            100% {
+                top: 100%;
+                left: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="login-container">
+        
+        <div id="video-header">
+            <video autoplay loop playsinline id="header-video">
+                Browser Anda tidak mendukung tag video.
+            </video>
+        </div>
+        
+        <h2>Welcome Back</h2>
+        <p>Login to continue</p>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="text" id="username" class="input-field" placeholder="Username" required>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" class="input-field" placeholder="Password" required>
+            </div>
+            
+            <button type="submit" class="login-button">
+                <span>LOGIN</span>
+            </button>
+        </form>
+        
+        <a href="buy_account.html" class="buy-account-link">Buy Account</a>
+    </div>
+
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div id="error-message-area">
+                <div>
+                    <span class="modal-icon">⚠️</span>
+                    <div class="modal-title">Error</div>
+                </div>
+                <p class="modal-message" id="error-text">Username and password are required.</p>
+            </div>
+            
+            <div class="modal-close-btn-container">
+                <button class="modal-close-btn" onclick="document.getElementById('errorModal').style.display='none'">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // =================================================================
+        // 🚨 TEMPAT MENGGANTI LINK VIDEO 🚨
+        // =================================================================
+        // GANTI DENGAN LINK VIDEO MP4/WEBM ANIMASI ANDA
+        const VIDEO_URL = "https://files.catbox.moe/u41oyu.mp4"; 
+        // =================================================================
+
+        const videoElement = document.getElementById('header-video');
+        const errorModal = document.getElementById('errorModal');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const errorText = document.getElementById('error-text');
+        
+        // 1. Set URL Video Header
+        const sourceElement = document.createElement('source');
+        sourceElement.src = VIDEO_URL;
+        sourceElement.type = 'video/mp4'; 
+        
+        videoElement.innerHTML = '';
+        videoElement.appendChild(sourceElement);
+        videoElement.load(); 
+        
+        // 2. FUNGSI UNTUK MENCERMATI AUTOPLAY DENGAN SUARA
+        function attemptAutoplay() {
+            videoElement.volume = 1.0; 
+            
+            const playPromise = videoElement.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Berhasil
+                }).catch(error => {
+                    // Diblokir, tambahkan listener klik
+                    document.body.addEventListener('click', () => {
+                        videoElement.play();
+                    }, { once: true });
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', attemptAutoplay);
+
+
+        // 3. Logika Login
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const enteredUsername = usernameInput.value.trim();
+            const enteredPassword = passwordInput.value.trim();
+            
+            const CORRECT_USERNAME = "dhanz"; 
+            const CORRECT_PASSWORD = "dhanz999"; 
+            const DASHBOARD_PAGE = "dashboard.html"; 
+
+            if (enteredUsername === "" || enteredPassword === "") {
+                errorText.textContent = "Username and password are required.";
+                errorModal.style.display = 'flex';
+            } else if (enteredUsername !== CORRECT_USERNAME || enteredPassword !== CORRECT_PASSWORD) {
+                errorText.textContent = "Incorrect username or password."; 
+                errorModal.style.display = 'flex';
+            } else {
+                window.location.href = DASHBOARD_PAGE;
+            }
+        });
+    </script>
+
+</body>
+</html>

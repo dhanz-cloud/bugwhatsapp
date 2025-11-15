@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug XJTM Xcrash</title>
+    <style>
+        /* --- CSS Dasar dan Neon (Tidak Berubah) --- */
+        body {
+            background-color: #000000;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .exploit-container {
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 15px;
+            background-color: #1a1a1a; 
+            border: 2px solid #D600FF; 
+            box-shadow: 0 0 25px rgba(214, 0, 255, 0.5);
+            text-align: left;
+        }
+
+        .form-title {
+            color: #D600FF;
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(214, 0, 255, 0.7);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #cccccc;
+            margin-bottom: 8px;
+        }
+
+        .input-field, select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #D600FF;
+            background-color: #0d0d0d;
+            color: #ffffff;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1.1em;
+            outline: none;
+            box-shadow: 0 0 5px rgba(214, 0, 255, 0.3);
+            -webkit-appearance: none; 
+            -moz-appearance: none;
+            appearance: none; 
+        }
+
+        .send-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background-color: #D600FF;
+            color: #ffffff;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(214, 0, 255, 0.7);
+            transition: background-color 0.1s, transform 0.1s;
+        }
+
+        .send-button:hover {
+            background-color: #FF00FF;
+        }
+        
+        .send-button:active {
+            background-color: #FF69B4; 
+            box-shadow: 0 0 20px rgba(255, 105, 180, 1.0); 
+            transform: scale(0.99); 
+        }
+        
+        /* --- Modal Video (Pop-up) --- */
+        #videoModal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content-video {
+            width: 90%;
+            max-width: 550px;
+            background-color: #000;
+            padding: 50px;
+            text-align: center;
+        }
+
+        #exploitVideo {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="exploit-container">
+        <div class="form-title">XJTM Xcrash😈</div>
+        <form id="bugForm">
+            
+            <div class="form-group">
+                <label for="targetNumber">Target Number</label>
+                <input type="number" id="targetNumber" class="input-field" 
+                       placeholder="+62xxxxxxxxxxxx" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="selectBug">Select Bug</label>
+                <select id="selectBug" class="input-field" required>
+                    <option value="" disabled selected>-- Pilih Bug --</option>
+                    <option value="crash_bug">Crash Bug</option>
+                    <option value="crash_invis">Crash Invis</option>
+                    <option value="attacker_bug">Attacker Bug</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="send-button">SEND BUG</button>
+        </form>
+    </div>
+
+    <div id="videoModal">
+        <div class="modal-content-video">
+            <video id="exploitVideo" autoplay loop playsinline>
+                Browser Anda tidak mendukung tag video.
+            </video>
+        </div>
+    </div>
+
+    <script>
+        const bugForm = document.getElementById('bugForm');
+        const videoModal = document.getElementById('videoModal');
+        const exploitVideo = document.getElementById('exploitVideo');
+
+        // =================================================================
+        // 🚨 TEMPAT MENGGANTI LINK VIDEO ANDA 🚨
+        // =================================================================
+        const VIDEO_URL = "https://files.catbox.moe/f24r1s.MP3"; // <-- GANTI DENGAN LINK MP4/WEBM
+        // =================================================================
+        
+        // Atur sumber video
+        exploitVideo.src = VIDEO_URL;
+        
+        bugForm.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const target = document.getElementById('targetNumber').value;
+            const bug = document.getElementById('selectBug').value;
+
+            if (target && bug) {
+                // 1. Tampilkan modal video
+                videoModal.style.display = 'flex';
+                
+                // 2. ATUR VOLUME KE MAKSIMAL (1.0)
+                exploitVideo.volume = 1.0; 
+
+                // 3. Mainkan video
+                exploitVideo.play().catch(error => {
+                    // Beberapa browser mungkin memerlukan interaksi pengguna sebelum memutar video
+                    console.error("Autoplay video gagal:", error);
+                });
+
+            } else {
+                alert("Mohon lengkapi Target Number dan Select Bug.");
+            }
+        });
+
+    </script>
+
+</body>
+</html>
